@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- TODO: zameni "Borovina" pravim imenom apartmana svuda u fajlu -->
+<title>Apartman Borovina Zlatibor – smeštaj za porodice sa decom</title>
+<meta name="description" content="Apartman na Zlatiboru za dvoje odraslih i do dvoje dece. Krevetac, hranilica, igračke i sve što vam treba za odmor sa malom decom. Direktna rezervacija bez provizije.">
+<meta property="og:title" content="Apartman Borovina – Zlatibor za porodice">
+<meta property="og:description" content="Za dvoje odraslih i do dvoje dece. Spakujte manje, odmorite se više.">
+<meta property="og:type" content="website">
+<!-- TODO: <meta property="og:image" content="https://tvoj-domen.rs/img/naslovna.jpg"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;700;800&display=swap&subset=latin-ext" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  "name": "Apartman Borovina",
+  "description": "Porodični apartman na Zlatiboru za dvoje odraslih i do dvoje dece.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Zlatibor",
+    "addressCountry": "RS"
+  },
+  "telephone": "+381600000000",
+  "petsAllowed": false,
+  "numberOfRooms": 2
+}
+</script>
+
+<style>
+:root{
+  --pine:#1f4d3a;
+  --pine-dark:#153829;
+  --moss:#5f8a5b;
+  --cream:#faf6ee;
+  --sand:#f1e8d8;
+  --ink:#24302a;
+  --muted:#5d6b63;
+  --accent:#d9733a;
+  --accent-dark:#b85c27;
+  --card:#ffffff;
+  --line:#e4dccb;
+  --radius:18px;
+  --shadow:0 10px 30px rgba(31,77,58,.10);
+  --max:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:"Nunito",system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;font-size:17px}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;line-height:1.15;color:var(--pine-dark)}
+h2{font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:.6rem}
+h3{font-size:1.2rem;margin-bottom:.35rem}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+section{padding:88px 0}
+.eyebrow{display:inline-block;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+.lead{font-size:1.1rem;color:var(--muted);max-width:640px}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font:inherit;font-weight:800;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:.85rem 1.5rem;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-ghost{background:rgba(255,255,255,.14);color:#fff;border:2px solid rgba(255,255,255,.55)}
+.btn-ghost:hover{background:rgba(255,255,255,.25)}
+
+/* Nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .25s,box-shadow .25s}
+.nav.scrolled{background:rgba(250,246,238,.96);box-shadow:0 2px 14px rgba(0,0,0,.07);backdrop-filter:blur(6px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-family:"Fraunces",serif;font-weight:700;font-size:1.3rem;text-decoration:none;color:#fff}
+.logo span{color:var(--accent)}
+.nav.scrolled .logo{color:var(--pine-dark)}
+.nav-links{display:flex;gap:1.6rem;list-style:none;align-items:center}
+.nav-links a{text-decoration:none;font-weight:700;color:#fff;font-size:.95rem}
+.nav.scrolled .nav-links a{color:var(--ink)}
+.nav-links .btn{padding:.6rem 1.15rem;color:#fff!important}
+@media (max-width:860px){.nav-links li:not(:last-child){display:none}}
+
+/* Hero */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;color:#fff;padding:120px 0 80px;overflow:hidden;
+  background:linear-gradient(180deg,#24563f 0%,#2f6b4c 45%,#4f8a5e 100%)}
+/* TODO: kad budeš imao pravu fotografiju, otkomentariši sledeći red i obriši planine iz HTML-a */
+/* .hero{background:linear-gradient(rgba(21,56,41,.55),rgba(21,56,41,.55)),url("img/naslovna.jpg") center/cover} */
+.hero .mountains{position:absolute;inset:auto 0 0 0;width:100%;height:46%;pointer-events:none}
+.hero .wrap{position:relative;z-index:2}
+.hero h1{color:#fff;font-size:clamp(2.4rem,6vw,4.2rem);max-width:760px;margin-bottom:1rem}
+.hero p{font-size:1.2rem;max-width:580px;opacity:.95;margin-bottom:2rem}
+.hero-cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.facts{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2.4rem}
+.fact{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:.45rem .95rem;border-radius:999px;font-weight:700;font-size:.92rem}
+
+/* Spakujte manje */
+.grid{display:grid;gap:20px}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--card);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.card .ico{width:48px;height:48px;border-radius:14px;background:var(--sand);display:grid;place-items:center;font-size:1.5rem;margin-bottom:14px}
+.card p{color:var(--muted);font-size:.97rem}
+.section-head{margin-bottom:44px}
+
+/* Apartman */
+.apt{background:var(--sand)}
+.apt-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start}
+@media (max-width:900px){.apt-grid{grid-template-columns:1fr}}
+.rooms{list-style:none;margin-top:1.4rem;display:grid;gap:14px}
+.rooms li{background:var(--card);border-radius:14px;padding:16px 18px;border:1px solid var(--line)}
+.rooms strong{display:block;color:var(--pine-dark)}
+.rooms span{color:var(--muted);font-size:.95rem}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.gallery .ph:first-child{grid-column:span 2;aspect-ratio:16/10}
+.ph{aspect-ratio:4/3;border-radius:14px;background:linear-gradient(135deg,#d9cfbb,#c5b89e);display:flex;align-items:flex-end;padding:12px;color:#5b4f3a;font-weight:700;font-size:.85rem;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover}
+.amen{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.amen span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:.35rem .85rem;font-size:.9rem;font-weight:600}
+
+/* Okolina */
+.places{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.place{display:flex;gap:16px;background:var(--card);border-radius:var(--radius);padding:22px;border:1px solid var(--line)}
+.place .dist{flex:0 0 auto;min-width:64px;height:64px;border-radius:14px;background:var(--pine);color:#fff;display:grid;place-items:center;text-align:center;font-weight:800;font-size:.8rem;line-height:1.1;padding:4px}
+.place p{color:var(--muted);font-size:.95rem}
+.season{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:28px}
+@media (max-width:700px){.season{grid-template-columns:1fr}}
+.season div{border-radius:var(--radius);padding:24px;color:#fff}
+.season .summer{background:linear-gradient(135deg,#5f8a5b,#2f6b4c)}
+.season .winter{background:linear-gradient(135deg,#5a7d9a,#2d4c66)}
+.season h3{color:#fff}
+.season ul{margin:.5rem 0 0 1.1rem}
+
+/* Cene */
+.price-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
+@media (max-width:900px){.price-wrap{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+th,td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--line)}
+th{background:var(--pine);color:#fff;font-weight:700}
+td:last-child{font-weight:800;color:var(--pine-dark);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.note{font-size:.92rem;color:var(--muted);margin-top:12px}
+.info{list-style:none;display:grid;gap:10px}
+.info li{display:flex;gap:10px}
+.info li::before{content:"✓";color:var(--moss);font-weight:800}
+
+/* FAQ */
+.faq{background:var(--sand)}
+.faq-list{max-width:780px;display:grid;gap:12px}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+summary{cursor:pointer;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--accent)}
+details[open] summary::after{content:"−"}
+details p{margin-top:10px;color:var(--muted)}
+
+/* Kontakt */
+.contact{background:var(--pine);color:#fff}
+.contact h2{color:#fff}
+.contact .lead{color:rgba(255,255,255,.85)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:44px;margin-top:36px}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+.direct a{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:700;font-size:1.1rem;margin-bottom:16px}
+.direct a span:first-child{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.12);display:grid;place-items:center}
+form{background:var(--cream);color:var(--ink);border-radius:var(--radius);padding:28px;display:grid;gap:14px;grid-template-columns:1fr 1fr}
+form .full{grid-column:1/-1}
+@media (max-width:560px){form{grid-template-columns:1fr}}
+label{font-weight:700;font-size:.9rem;display:grid;gap:6px}
+input,select,textarea{font:inherit;padding:.7rem .85rem;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--moss)}
+.form-actions{display:flex;gap:10px;flex-wrap:wrap}
+.form-msg{font-size:.9rem;color:#b3261e;min-height:1.2em}
+
+footer{background:var(--pine-dark);color:rgba(255,255,255,.75);padding:32px 0;font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+/* Sticky CTA na telefonu */
+.mobile-cta{display:none}
+@media (max-width:700px){
+  section{padding:64px 0}
+  .mobile-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;padding:10px 16px;background:rgba(250,246,238,.97);box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+  .mobile-cta .btn{flex:1;justify-content:center}
+  footer{padding-bottom:90px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a href="#" class="logo">Apartman <span>Borovina</span></a>
+    <ul class="nav-links">
+      <li><a href="#za-porodice">Za porodice</a></li>
+      <li><a href="#apartman">Apartman</a></li>
+      <li><a href="#okolina">Okolina</a></li>
+      <li><a href="#cene">Cene</a></li>
+      <li><a href="#kontakt" class="btn btn-primary">Proveri termin</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 260 L180 140 L320 230 L520 80 L700 220 L860 120 L1040 240 L1240 110 L1440 220 L1440 400 L0 400Z" fill="#3f7a55" opacity=".55"/>
+    <path d="M0 320 L140 250 L300 310 L480 210 L640 300 L820 230 L1000 310 L1180 240 L1440 300 L1440 400 L0 400Z" fill="#2a5e43" opacity=".8"/>
+    <g fill="#1d4a35">
+      <path d="M90 400 l30-90 30 90z"/><path d="M130 400 l22-64 22 64z"/>
+      <path d="M1210 400 l34-100 34 100z"/><path d="M1265 400 l24-70 24 70z"/>
+      <path d="M1330 400 l28-82 28 82z"/><path d="M40 400 l20-58 20 58z"/>
+    </g>
+    <path d="M0 370 Q360 340 720 365 T1440 355 L1440 400 L0 400Z" fill="#faf6ee"/>
+  </svg>
+  <div class="wrap">
+    <span class="eyebrow" style="color:#ffd3b4">Zlatibor · smeštaj za porodice</span>
+    <h1>Zlatibor sa decom, bez pakovanja pola kuće</h1>
+    <p>Apartman za dvoje odraslih i jedno ili dvoje dece. Krevetac, hranilica, igračke i sve sitnice koje vam trebaju već su tu. Vi samo ponesite garderobu.</p>
+    <div class="hero-cta">
+      <a href="#kontakt" class="btn btn-primary">Pošaljite upit</a>
+      <a href="#za-porodice" class="btn btn-ghost">Šta vas čeka</a>
+    </div>
+    <!-- TODO: proveri i ispravi brojeve -->
+    <div class="facts">
+      <span class="fact">👨‍👩‍👧‍👦 2 odrasla + 2 deteta</span>
+      <span class="fact">📐 45 m²</span>
+      <span class="fact">🅿️ Besplatan parking</span>
+      <span class="fact">📍 10 min hoda do centra</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="za-porodice">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Spremno za decu</span>
+      <h2>Mesto gde ne morate stalno da govorite „ne diraj to”</h2>
+      <p class="lead">Apartman je opremljen tako da mališani mogu slobodno da se kreću, a vi da popijete kafu dok je još topla.</p>
+    </div>
+    <!-- TODO: ostavi samo ono što zaista imaš u apartmanu -->
+    <div class="grid grid-3">
+      <div class="card"><div class="ico">🛏️</div><h3>Krevetac i posteljina</h3><p>Prenosivi krevetac sa dušekom i čistom posteljinom, spreman pre vašeg dolaska.</p></div>
+      <div class="card"><div class="ico">🍼</div><h3>Hranilica i dečje posuđe</h3><p>Stolica za hranjenje, plastični tanjiri, čaše i escajg. Štapni mikser za kašice je u kuhinji.</p></div>
+      <div class="card"><div class="ico">🛁</div><h3>Kadica i stepenik</h3><p>Kadica za bebe i stepenik za lavabo, da i starije dete samo opere zube.</p></div>
+      <div class="card"><div class="ico">🔌</div><h3>Bezbedan prostor</h3><p>Zaštita na utičnicama i oštrim ivicama, sredstva za čišćenje van domašaja.</p></div>
+      <div class="card"><div class="ico">🧸</div><h3>Kutak za igru</h3><p>Igračke, slikovnice, bojanke i društvene igre za uzrast od 1 do 10 godina.</p></div>
+      <div class="card"><div class="ico">🛷</div><h3>Sanke i kolica na korišćenje</h3><p>Zimi sanke za decu, leti lagana kolica za šetnju. Bez doplate.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="apt" id="apartman">
+  <div class="wrap apt-grid">
+    <div>
+      <span class="eyebrow">Apartman</span>
+      <h2>Dve odvojene prostorije, da deca spavaju dok vi gledate film</h2>
+      <p class="lead">Kad deca zaspu u osam, roditelji ne moraju da sede u mraku. Spavaća soba je odvojena od dnevnog boravka vratima.</p>
+      <!-- TODO: opiši stvarni raspored -->
+      <ul class="rooms">
+        <li><strong>Spavaća soba</strong><span>Bračni krevet 160×200, mesta za krevetac, zamračujuće zavese</span></li>
+        <li><strong>Dnevni boravak</strong><span>Razvlačni kauč za decu, smart TV, kutak za igru</span></li>
+        <li><strong>Kuhinja</strong><span>Šporet, rerna, frižider, mikrotalasna, posuđe za kuvanje</span></li>
+        <li><strong>Kupatilo</strong><span>Kada (ne tuš kabina), mašina za veš, fen</span></li>
+        <li><strong>Terasa</strong><span>Sa pogledom na borovu šumu, zaštitna ograda</span></li>
+      </ul>
+      <div class="amen">
+        <span>Wi-Fi</span><span>Grejanje</span><span>Mašina za veš</span><span>Parking</span><span>Lift</span><span>Peškiri i posteljina</span><span>Nepušački</span>
+      </div>
+    </div>
+    <!-- TODO: zameni <div class="ph">tekst</div> sa <div class="ph"><img src="img/dnevna.jpg" alt="Dnevni boravak"></div> -->
+    <div class="gallery">
+      <div class="ph">Fotografija: dnevni boravak</div>
+      <div class="ph">Spavaća soba</div>
+      <div class="ph">Kutak za igru</div>
+      <div class="ph">Kuhinja</div>
+      <div class="ph">Pogled sa terase</div>
+    </div>
+  </div>
+</section>
+
+<section id="okolina">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Okolina</span>
+      <h2>Šta raditi sa decom na Zlatiboru</h2>
+      <p class="lead">Dovoljno da napunite svaki dan, a opet blizu da se vratite na popodnevno spavanje.</p>
+    </div>
+    <!-- TODO: proveri udaljenosti od svoje adrese -->
+    <div class="places">
+      <div class="place"><div class="dist">10 min<br>peške</div><div><h3>Centar i Kraljeve vode</h3><p>Šetalište oko jezera, igrališta, vožnja čamcem i pedalinom, kokice i šećerna vuna.</p></div></div>
+      <div class="place"><div class="dist">5 min<br>autom</div><div><h3>Gold gondola</h3><p>Jedna od najdužih panoramskih gondola na svetu. Deca je pamte duže od bilo čega drugog.</p></div></div>
+      <div class="place"><div class="dist">15 min<br>autom</div><div><h3>Ribničko jezero</h3><p>Mirno jezero okruženo šumom, idealno za piknik i šetnju sa kolicima.</p></div></div>
+      <div class="place"><div class="dist">20 min<br>autom</div><div><h3>Tornik</h3><p>Ski centar sa školom skijanja za decu i blagim stazama za početnike. Leti gondola i staze za šetnju.</p></div></div>
+      <div class="place"><div class="dist">30 min<br>autom</div><div><h3>Sirogojno</h3><p>Etno-selo „Staro selo”, muzej na otvorenom gde deca vide kako se nekad živelo.</p></div></div>
+      <div class="place"><div class="dist">45 min<br>autom</div><div><h3>Mokra Gora i Šargan</h3><p>Vožnja starim vozom „Šarganska osmica” i Drvengrad. Celodnevni izlet koji se priča godinama.</p></div></div>
+    </div>
+    <div class="season">
+      <div class="summer"><h3>☀️ Leto</h3><ul><li>Prijatno i kad je u gradu 35°C</li><li>Šetnje kroz borovu šumu</li><li>Jezera, gondola, avantura parkovi</li></ul></div>
+      <div class="winter"><h3>❄️ Zima</h3><ul><li>Sankanje odmah pored zgrade</li><li>Škola skijanja za decu na Torniku</li><li>Novogodišnja čarolija u centru</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="cene">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Cene</span>
+      <h2>Jasne cene, bez provizije</h2>
+      <p class="lead">Kad rezervišete direktno kod nas, ne plaćate proviziju posrednicima. Cena je za ceo apartman, do 4 osobe.</p>
+    </div>
+    <div class="price-wrap">
+      <!-- TODO: upiši prave cene i periode -->
+      <table>
+        <thead><tr><th>Period</th><th>Cena po noći</th></tr></thead>
+        <tbody>
+          <tr><td>Van sezone<br><small>mart – maj, oktobar – novembar</small></td><td>45 €</td></tr>
+          <tr><td>Leto<br><small>jun – septembar</small></td><td>60 €</td></tr>
+          <tr><td>Zima<br><small>decembar – februar</small></td><td>70 €</td></tr>
+          <tr><td>Nova godina<br><small>min. 5 noći</small></td><td>na upit</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <h3>U cenu je uključeno</h3>
+        <ul class="info" style="margin-top:12px">
+          <li>Sva oprema za decu</li>
+          <li>Posteljina, peškiri, završno čišćenje</li>
+          <li>Wi-Fi i parking</li>
+          <li>Prijem od 14h, odjava do 10h</li>
+          <li>Minimalan boravak 2 noći</li>
+        </ul>
+        <p class="note">Boravišna taksa se plaća posebno, prema odluci opštine Čajetina.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+  TODO: Sekcija sa utiscima gostiju.
+  Dodaj je tek kad imaš PRAVE recenzije (npr. prepisane sa Booking-a ili Google-a, uz ime i mesec boravka).
+  Izmišljene recenzije su zakonski problem i ljudi ih prepoznaju.
+-->
+
+<section class="faq" id="pitanja">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Česta pitanja</span>
+      <h2>Pre nego što pitate</h2>
+    </div>
+    <!-- TODO: prilagodi odgovore -->
+    <div class="faq-list">
+      <details><summary>Da li apartman odgovara bebi?</summary><p>Da. Imamo krevetac, kadicu, hranilicu i štapni mikser. Ako vam treba još nešto, napišite u upitu i potrudićemo se da obezbedimo.</p></details>
+      <details><summary>Mogu li da dođem sa troje dece?</summary><p>Apartman je napravljen za najviše četiri osobe. Za veće porodice nažalost nemamo dovoljno ležajeva.</p></details>
+      <details><summary>Kako se plaća?</summary><p>Avans od 30% uplatom na račun potvrđuje rezervaciju, ostatak se plaća po dolasku, gotovinom ili na račun.</p></details>
+      <details><summary>Šta ako se dete razboli i moramo da otkažemo?</summary><p>Do 14 dana pre dolaska vraćamo ceo avans. Kasnije otkazivanje pokušavamo da rešimo pomeranjem termina.</p></details>
+      <details><summary>Da li su kućni ljubimci dozvoljeni?</summary><p>Nažalost ne, zbog gostiju sa malom decom i alergijama.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="wrap">
+    <span class="eyebrow" style="color:#ffd3b4">Rezervacija</span>
+    <h2>Proverite da li je vaš termin slobodan</h2>
+    <p class="lead">Odgovaramo istog dana, najčešće u roku od sat vremena.</p>
+    <div class="contact-grid">
+      <!-- TODO: upiši pravi broj i mejl -->
+      <div class="direct">
+        <a href="tel:+381600000000"><span>📞</span><span>060 000 0000</span></a>
+        <a href="https://wa.me/381600000000" target="_blank" rel="noopener"><span>💬</span><span>WhatsApp / Viber</span></a>
+        <a href="mailto:info@primer.rs"><span>✉️</span><span>info@primer.rs</span></a>
+        <a href="https://maps.google.com/?q=Zlatibor" target="_blank" rel="noopener"><span>📍</span><span>Zlatibor, Srbija</span></a>
+      </div>
+      <form id="upit" novalidate>
+        <label>Ime<input name="ime" required autocomplete="name"></label>
+        <label>Telefon<input name="telefon" type="tel" required autocomplete="tel"></label>
+        <label>Dolazak<input name="dolazak" type="date" required></label>
+        <label>Odlazak<input name="odlazak" type="date" required></label>
+        <label>Broj dece
+          <select name="deca"><option>1</option><option selected>2</option></select>
+        </label>
+        <label>Uzrast dece<input name="uzrast" placeholder="npr. 2 i 6 godina"></label>
+        <label class="full">Poruka (opciono)<textarea name="poruka" rows="3" placeholder="Da li vam treba krevetac, hranilica..."></textarea></label>
+        <p class="form-msg full" id="formMsg" role="alert"></p>
+        <div class="form-actions full">
+          <button type="submit" class="btn btn-primary" data-via="wa">Pošalji preko WhatsApp-a</button>
+          <button type="submit" class="btn btn-ghost" style="color:var(--pine);border-color:var(--pine)" data-via="mail">Pošalji mejlom</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> Apartman Borovina, Zlatibor</span>
+    <!-- TODO: upiši broj rešenja o kategorizaciji -->
+    <span>Kategorisan smeštaj · Rešenje br. ______</span>
+  </div>
+</footer>
+
+<div class="mobile-cta"><a href="#kontakt" class="btn btn-primary">Proveri slobodan termin</a></div>
+
+<script>
+// TODO: upiši pravi broj (bez + i nula na početku) i mejl
+const WHATSAPP = "381600000000";
+const EMAIL = "info@primer.rs";
+
+const nav = document.getElementById("nav");
+const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 40);
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+const form = document.getElementById("upit");
+const msg = document.getElementById("formMsg");
+const today = new Date().toISOString().slice(0, 10);
+form.dolazak.min = today;
+form.odlazak.min = today;
+form.dolazak.addEventListener("change", () => { form.odlazak.min = form.dolazak.value || today; });
+
+const fmt = d => d.split("-").reverse().join(".");
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const f = form.elements;
+  if (!f.ime.value.trim() || !f.telefon.value.trim() || !f.dolazak.value || !f.odlazak.value) {
+    msg.textContent = "Popunite ime, telefon i datume.";
+    return;
+  }
+  if (f.odlazak.value <= f.dolazak.value) {
+    msg.textContent = "Datum odlaska mora biti posle datuma dolaska.";
+    return;
+  }
+  msg.textContent = "";
+
+  const text =
+    `Zdravo, zanima me apartman od ${fmt(f.dolazak.value)} do ${fmt(f.odlazak.value)}.\n` +
+    `Dvoje odraslih i ${f.deca.value} ${f.deca.value === "1" ? "dete" : "dece"}` +
+    (f.uzrast.value.trim() ? ` (${f.uzrast.value.trim()})` : "") + ".\n" +
+    (f.poruka.value.trim() ? f.poruka.value.trim() + "\n" : "") +
+    `${f.ime.value.trim()}, ${f.telefon.value.trim()}`;
+
+  const via = e.submitter ? e.submitter.dataset.via : "wa";
+  if (via === "mail") {
+    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Upit za apartman")}&body=${encodeURIComponent(text)}`;
+  } else {
+    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+  }
+});
+</script>
+</body>
+</html>
