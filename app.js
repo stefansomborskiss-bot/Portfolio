@@ -184,7 +184,8 @@ var DATA = {
 var state = {
   lang: 'sr', active: 'yolo', appr: 'strategy', activeRole: 'msf', filter: 'all',
   lb: null, zlb: null, sheetLb: false, topic: 'strategy',
-  name: '', company: '', msg: '', copied: false
+  name: '', company: '', email: '', msg: '', copied: false,
+  sendState: 'idle', sendErrorKey: ''
 };
 
 function setState(patch) {
@@ -406,9 +407,8 @@ function contactSubjectBody() {
   var body = en
     ? 'Hi Stefan,\n\nMy name is ' + (nm || '[name]') + (co ? ' and I am with ' + co : '') + '.\n\n' + (state.msg.trim() || '[a few sentences on what you need]') + '\n\nBest,\n' + (nm || '')
     : 'Zdravo Stefane,\n\nZovem se ' + (nm || '[ime]') + (co ? ', iz kompanije ' + co : '') + '.\n\n' + (state.msg.trim() || '[nekoliko rečenica o tome šta ti treba]') + '\n\nPozdrav,\n' + (nm || '');
-  var mailHref = 'mailto:stefansomborski.ss@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   var preview = L('Predmet: ', 'Subject: ') + subject + '\n\n' + body;
-  return { topicDefs: topicDefs, mailHref: mailHref, preview: preview };
+  return { topicDefs: topicDefs, subject: subject, body: body, preview: preview };
 }
 
 function renderContact() {
@@ -419,6 +419,27 @@ function renderContact() {
   }).join('');
   var copySr = state.copied ? 'Mejl kopiran ✓' : 'Kopiraj mejl adresu';
   var copyEn = state.copied ? 'Email copied ✓' : 'Copy email address';
+
+  var sending = state.sendState === 'sending';
+  var sent = state.sendState === 'sent';
+  var sendLabel = sending
+    ? bi('Šalje se…', 'Sending…')
+    : sent
+      ? bi('Poslato ✓', 'Sent ✓')
+      : bi('Pošalji poruku', 'Send message');
+  var sendDisabled = (sending || sent) ? ' disabled' : '';
+
+  var statusHtml = '';
+  if (state.sendState === 'error') {
+    var errMsg = state.sendErrorKey === 'email'
+      ? bi('Unesi ispravnu mejl adresu.', 'Enter a valid email address.')
+      : state.sendErrorKey === 'validation'
+        ? bi('Popuni ime, mejl i poruku.', 'Fill in your name, email, and message.')
+        : bi('Nešto nije u redu — pokušaj ponovo ili piši direktno na mejl.', 'Something went wrong — try again, or email me directly.');
+    statusHtml = '<p class="send-status err">' + errMsg + '</p>';
+  } else if (sent) {
+    statusHtml = '<p class="send-status ok">' + bi('Hvala! Poruka je poslata, javiću se uskoro mejlom.', 'Thanks! Your message is sent — I will reply by email soon.') + '</p>';
+  }
 
   return '<div class="wrap cgrid2">' +
     '<div><div class="eyebrow mono"><b style="background:#87868C"></b>06 / ' + bi('Kontakt', 'Contact') + '</div>' +
@@ -434,10 +455,13 @@ function renderContact() {
     '<span class="lab mono">' + bi('Na čemu ćemo raditi?', 'What shall we work on?') + '</span>' +
     '<div class="chips">' + chips + '</div>' +
     '<label class="fld"><span class="mono">' + bi('Tvoje ime', 'Your name') + '</span><input type="text" id="fld-name" autocomplete="name"></label>' +
+    '<label class="fld"><span class="mono">' + bi('Tvoj email', 'Your email') + '</span><input type="email" id="fld-email" autocomplete="email"></label>' +
     '<label class="fld"><span class="mono">' + bi('Kompanija', 'Company') + '</span><input type="text" id="fld-company" autocomplete="organization"></label>' +
     '<label class="fld"><span class="mono">' + bi('Poruka', 'Message') + '</span><textarea id="fld-msg"></textarea></label>' +
+    '<input type="text" id="fld-honey" name="_honey" autocomplete="off" tabindex="-1" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" aria-hidden="true">' +
     '<div class="prev" id="mail-preview"><b>' + bi('Ovako će izgledati mejl', 'Your email will look like this') + '</b>' + esc(cb.preview) + '</div>' +
-    '<div class="frow"><a class="btn" id="mail-open-link" href="' + cb.mailHref + '">' + bi('Otvori u mejlu', 'Open in email') + '<span aria-hidden="true">↗</span></a></div>' +
+    '<div class="frow"><button class="btn" type="button" data-act="send-mail"' + sendDisabled + '>' + sendLabel + '<span aria-hidden="true">↗</span></button></div>' +
+    '<div id="send-status">' + statusHtml + '</div>' +
     '</div></div>';
 }
 
@@ -561,6 +585,7 @@ function render() {
 
   /* restore uncontrolled field values after re-render (lang toggle, topic pick, etc. can blur mid-typing — this keeps the typed text intact even if focus is lost) */
   var fn = document.getElementById('fld-name'); if (fn) fn.value = state.name;
+  var fe = document.getElementById('fld-email'); if (fe) fe.value = state.email;
   var fc = document.getElementById('fld-company'); if (fc) fc.value = state.company;
   var fm = document.getElementById('fld-msg'); if (fm) fm.value = state.msg;
 }
@@ -569,12 +594,9 @@ function render() {
 function updateContactPreview() {
   var cb = contactSubjectBody();
   var prev = document.getElementById('mail-preview');
-  var link = document.getElementById('mail-open-link');
   if (prev) {
-    var label = L('Ovako će izgledati mejl', 'Your email will look like this');
     prev.innerHTML = '<b>' + bi('Ovako će izgledati mejl', 'Your email will look like this') + '</b>' + esc(cb.preview);
   }
-  if (link) link.setAttribute('href', cb.mailHref);
 }
 
 /* ---------- event delegation ---------- */
@@ -645,6 +667,39 @@ document.addEventListener('click', function (e) {
         navigator.clipboard.writeText('stefansomborski.ss@gmail.com').then(function () { setState({ copied: true }); }, function () {});
       } catch (err) { /* clipboard unavailable */ }
       break;
+    case 'send-mail': {
+      if (state.sendState === 'sending' || state.sendState === 'sent') break;
+      var honey = document.getElementById('fld-honey');
+      if (honey && honey.value) break; /* bot caught by honeypot — drop silently */
+      var nm = state.name.trim();
+      var em = state.email.trim();
+      var msgTxt = state.msg.trim();
+      if (!nm || !em || !msgTxt) { setState({ sendState: 'error', sendErrorKey: 'validation' }); break; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { setState({ sendState: 'error', sendErrorKey: 'email' }); break; }
+      setState({ sendState: 'sending' });
+      var cb = contactSubjectBody();
+      var payload = {
+        name: nm,
+        email: em,
+        company: state.company.trim(),
+        message: msgTxt,
+        _subject: 'Portfolio sajt: ' + cb.subject,
+        _replyto: em,
+        _honey: ''
+      };
+      fetch('https://formsubmit.co/ajax/stefansomborski.ss@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        return res.json().catch(function () { return { success: 'likely' }; });
+      }).then(function () {
+        setState({ sendState: 'sent' });
+      }).catch(function () {
+        setState({ sendState: 'error', sendErrorKey: 'network' });
+      });
+      break;
+    }
   }
 });
 
@@ -659,6 +714,7 @@ document.addEventListener('mouseenter', function (e) {
 document.addEventListener('input', function (e) {
   var id = e.target.id;
   if (id === 'fld-name') { state.name = e.target.value; updateContactPreview(); }
+  else if (id === 'fld-email') { state.email = e.target.value; }
   else if (id === 'fld-company') { state.company = e.target.value; updateContactPreview(); }
   else if (id === 'fld-msg') { state.msg = e.target.value; updateContactPreview(); }
 });

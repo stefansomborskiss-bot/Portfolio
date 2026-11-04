@@ -28,6 +28,7 @@ a{color:inherit;text-decoration:none}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
 .btn.ghost:hover{background:var(--ink);color:var(--paper)}
 .btn.sm{padding:10px 20px;min-height:44px;font-size:14px}
+.btn:disabled{opacity:.55;cursor:default;transform:none!important}
 
 /* hero */
 .hero{display:grid;grid-template-columns:1.4fr .8fr;gap:72px;align-items:center;padding-top:72px;padding-bottom:64px}
@@ -188,6 +189,9 @@ button.acard{flex:1 1 0;min-width:0;border:1px solid var(--ink);border-radius:24
 .prev{background:rgba(11,11,12,.06);border-radius:14px;padding:16px 18px;font-size:14px;line-height:1.55;white-space:pre-wrap;color:#1C1C1E;margin:6px 0 22px;max-height:200px;overflow:auto}
 .prev b{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:6px}
 .frow{display:flex;gap:12px;flex-wrap:wrap}
+.send-status{margin:14px 0 0;font-size:14px;line-height:1.5;padding:12px 16px;border-radius:12px}
+.send-status.ok{background:rgba(79,70,229,.1);color:var(--ink)}
+.send-status.err{background:rgba(220,38,38,.1);color:#B91C1C}
 .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:26px;padding-bottom:30px;color:#87868C;background:var(--ink);border-top:1px solid rgba(245,245,242,.15)}
 .foot a:hover{color:#818CF8}
 
