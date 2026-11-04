@@ -29,6 +29,8 @@ a{color:inherit;text-decoration:none}
 .btn.ghost:hover{background:var(--ink);color:var(--paper)}
 .btn.sm{padding:10px 20px;min-height:44px;font-size:14px}
 .btn:disabled{opacity:.55;cursor:default;transform:none!important}
+.site button.btn{background:var(--ink);color:var(--paper);padding:15px 26px;font-weight:600;font-size:15px}
+.site button.btn:hover{background:var(--accent)}
 
 /* hero */
 .hero{display:grid;grid-template-columns:1.4fr .8fr;gap:72px;align-items:center;padding-top:72px;padding-bottom:64px}
