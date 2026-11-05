@@ -679,22 +679,26 @@ document.addEventListener('click', function (e) {
       setState({ sendState: 'sending' });
       var cb = contactSubjectBody();
       var payload = {
+        access_key: 'b61d1441-b7eb-4c4f-86df-1530009230d2',
+        subject: 'Portfolio sajt: ' + cb.subject,
         name: nm,
         email: em,
         company: state.company.trim(),
         message: msgTxt,
-        _subject: 'Portfolio sajt: ' + cb.subject,
-        _replyto: em,
-        _honey: ''
+        botcheck: ''
       };
-      fetch('https://formsubmit.co/ajax/stefansomborski.ss@gmail.com', {
+      fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
       }).then(function (res) {
-        return res.json().catch(function () { return { success: 'likely' }; });
-      }).then(function () {
-        setState({ sendState: 'sent' });
+        return res.json().then(function (json) { return { ok: res.ok, json: json }; }).catch(function () { return { ok: res.ok, json: null }; });
+      }).then(function (result) {
+        if (result.ok && result.json && result.json.success) {
+          setState({ sendState: 'sent' });
+        } else {
+          setState({ sendState: 'error', sendErrorKey: 'network' });
+        }
       }).catch(function () {
         setState({ sendState: 'error', sendErrorKey: 'network' });
       });
